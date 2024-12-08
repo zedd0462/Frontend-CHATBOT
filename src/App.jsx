@@ -11,8 +11,20 @@ const App = () => {
 
   const generateBotResponse = async (question) => {
     try {
-      const response = await fetch(
+      /*const response = await fetch(
         `https://mql-chat-hrb5g2ddb9ajg3ek.francecentral-01.azurewebsites.net/chat/ask?question=${encodeURIComponent(question)}`
+      );*/
+      //we have to send the question as a POST request like this
+      // {"message":"question"}
+      const response = await fetch(
+        `https://mqlbot.azurewebsites.net/chat`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: question }),
+        }
       );
       
       if (!response.ok) {
